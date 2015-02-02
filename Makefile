@@ -1,3 +1,2 @@
-
-less:
+all:
 	bin/less &> /dev/null &
