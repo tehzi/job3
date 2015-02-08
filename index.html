@@ -26,8 +26,259 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery-scrollspy.js"></script>
+    <!-- Put this script tag to the <head> of your page -->
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+    <script type="text/javascript">
+$(function(){
+    var header_bg = "";
+    $('<img alt="" />').load(function(e){
+                            $('header .bg-image').css({'background-image': 'url(' + e.currentTarget.src + ')'})
+                                                 .animate({'opacity': 1}, 1000);
+                            $(this).remove();
+                       })
+                       .attr('src', 'images/633d95128457d8fc5dd219724bd9120f.jpg');
+    $('section').each(function(index, item){
+        var position = $(this).position();
+        var spy = $(window);
+        var section = {'header': function(element){},
+                       'capabilities': function(){},
+                       'capabilities2': function(){},
+                       'capabilities3': function(){},
+                       'likes': function(){},
+                       'all': function(element){
+                            $(element).find('img.lazy')
+                                      .each(function(index, item){
+                                            var img = $(item);
+                                            if(!img.attr("src") && img.data('original')) {
+                                                $('<img alt="" />').load(function(e){
+                                                                        img.attr({'src': e.currentTarget.src})
+                                                                           .animate({'opacity': 1}, 1000);
+                                                                        $(this).remove();
+                                                                   })
+                                                                   .attr('src', $(item).data('original'));
+                                            }
+                                      })
+                       }};
+        $(this).scrollspy({'min': position.top,
+                           'max': position.top + $(this).height(),
+                           'onEnter': function(element, position) {
+                                $('a[href="#' + element.id + '"]').parents('li')
+                                                                  .siblings('li')
+                                                                  .removeClass('active')
+                                                                  .end()
+                                                                  .addClass('active');
+                           }});
+        spy.bind('scroll.spy', function(e){
+            $('img.lazy').each(function(index, item){
+                if(spy.scrollTop() + $(window).height() > $(item).offset().top) {
+                    var img = $(item);
+                    if(!img.attr("src") && img.data('original')) {
+                        $('<img alt="" />').load(function(e){
+                                                img.attr({'src': e.currentTarget.src})
+                                                   .animate({'opacity': 1}, 1000);
+                                                $(this).remove();
+                                           })
+                                           .attr('src', $(item).data('original'));
+                    }
+                }
+            });
+        });
+    });
+    $('a.page-scroll').bind('click', function(e) {
+        var $anchor = $(this);
+        $('html, body').stop()
+                       .animate({'scrollTop': $($anchor.attr('href')).offset().top + 1}, 1500, 'easeInOutExpo');
+        $anchor.parents('li')
+               .siblings('li')
+               .removeClass('active')
+               .end()
+               .addClass('active');
+        e.preventDefault();
+    });
+    VK.init({apiId: 34111, onlyWidgets: true});
+});
+    </script>
 </head>
 <body>
-
+    <div class="main-wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active">
+                            <a href="#header" class="page-scroll">Тигры</a>
+                        </li>
+                        <li>
+                            <a href="#capabilities" class="page-scroll">Мы рычим</a>
+                        </li>
+                        <li>
+                            <a href="#capabilities2" class="page-scroll">Мы пушистые</a>
+                        </li>
+                        <li>
+                            <a href="#capabilities3" class="page-scroll">Мы плаваем</a>
+                        </li>
+                        <li>
+                            <a href="#likes" class="page-scroll">Мы вам понравились?</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header>
+            <div class="bg-image"></div>
+            <section id="header">
+                <h2>Здесь есть тигры!</h2>
+                <h1>Много, много тигров!</h1>
+                <h3>И ещё немного ниже...</h3>
+            </section>
+        </header>
+        <section id="capabilities">
+            <h1>Мы рычим</h1>
+            <ul>
+                <li>
+                    <div class="clearfix">
+                        <div class="left ta-l">
+                            <h2>Факт 1</h2>
+                            <span>
+                                Тигр преимущественно молчалив. Голос подаёт редко. Только в период течки самцы обнаруживают себя голосом, похожим на глухой рёв.
+                            </span>
+                        </div>
+                        <div class="image-wrapper">
+                            <img data-original="images/r1-300x300.jpg" width="300" height="300" class="lazy" alt="">
+                            <noscript><img src="mages/r1-300x300.jpg" width="300" heigh="300" alt=""></noscript>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="clearfix">
+                        <div class="right ta-r">
+                            <h2>Факт 2</h2>
+                            <span>При нападении на добычу или в ярости глухо рычит. Тигру свойственна выраженная повадка ходить по следам и тропам оленей, кабанов и других крупных зверей, а также человека.</span>
+                        </div>
+                        <div class="image-wrapper">
+                            <img data-original="images/r2-300x300.jpg" width="300" height="300" class="lazy" alt="">
+                            <noscript><img src="mages/r2-300x300.jpg" width="300" heigh="300" alt=""></noscript>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="clearfix">
+                        <div class="left ta-l">
+                            <h2>Факт 3</h2>
+                            <span>
+                                Обычно тигры не рычат на других животных, но могут с помощью рёва общаться с другими тиграми издалека. Если тигр собирается нападать, он не рычит, а фыркает и шипит.
+                            </span>
+                        </div>
+                        <div class="image-wrapper">
+                            <img data-original="images/r3-300x300.jpg" width="300" height="300" class="lazy" alt="">
+                            <noscript><img src="mages/r3-300x300.jpg" width="300" heigh="300" alt=""></noscript>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section id="capabilities2">
+            <h1>Мы пушистые</h1>
+            <ul>
+                <li>
+                    <div class="clearfix">
+                        <div class="left ta-l">
+                            <h2>Факт 4</h2>
+                            <span>
+                                Полосатый рисунок присутствует также и на коже, и, если сбрить мех, то на тёмных полосах отрастает тёмная шерсть, и рисунок полностью восстанавливается.
+                            </span>
+                        </div>
+                        <div class="image-wrapper">
+                            <img data-original="images/r4-300x300.jpg" width="300" height="300" class="lazy" alt="">
+                            <noscript><img src="mages/r4-300x300.jpg" width="300" heigh="300" alt=""></noscript>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="clearfix">
+                        <div class="right ta-r">
+                            <h2>Факт 5</h2>
+                            <span>У тигра существует известная мутация, которая приводит к появлению особей с полностью белой окраской — бенгальские тигры с чёрно-коричневыми полосами на белом мехе и голубыми глазами. </span>
+                        </div>
+                        <div class="image-wrapper">
+                            <img data-original="images/r5-300x300.jpg" width="300" height="300" class="lazy" alt="">
+                            <noscript><img src="mages/r5-300x300.jpg" width="300" heigh="300" alt=""></noscript>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="clearfix">
+                        <div class="left ta-l">
+                            <h2>Факт 6</h2>
+                            <span>
+                                Белые тигры превосходно размножаются в неволе. Первые упоминания о них относят к 1951 году, когда один из охотников забрал из найденного им логова тигрицы белого тигрёнка.
+                            </span>
+                        </div>
+                        <div class="image-wrapper">
+                            <img data-original="images/r6-300x300.jpg" width="300" height="300" class="lazy" alt="">
+                            <noscript><img src="mages/r6-300x300.jpg" width="300" heigh="300" alt=""></noscript>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section id="capabilities3">
+            <h1>Мы плаваем</h1>
+            <ul>
+                <li>
+                    <div class="clearfix">
+                        <div class="left ta-l">
+                            <h2>Факт 7</h2>
+                            <span>
+                                Полосатый рисунок присутствует также и на коже, и, если сбрить мех, то на тёмных полосах отрастает тёмная шерсть, и рисунок полностью восстанавливается.
+                            </span>
+                        </div>
+                        <div class="image-wrapper">
+                            <img data-original="images/r7-300x300.jpg" width="300" height="300" class="lazy" alt="">
+                            <noscript><img src="mages/r7-300x300.jpg" width="300" heigh="300" alt=""></noscript>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="clearfix">
+                        <div class="right ta-r">
+                            <h2>Факт 8</h2>
+                            <span>У тигра существует известная мутация, которая приводит к появлению особей с полностью белой окраской — бенгальские тигры с чёрно-коричневыми полосами на белом мехе и голубыми глазами. </span>
+                        </div>
+                        <div class="image-wrapper">
+                            <img data-original="images/r8-300x300.jpg" width="300" height="300" class="lazy" alt="">
+                            <noscript><img src="mages/r8-300x300.jpg" width="300" heigh="300" alt=""></noscript>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="clearfix">
+                        <div class="left ta-l">
+                            <h2>Факт 9</h2>
+                            <span>
+                                Белые тигры превосходно размножаются в неволе. Первые упоминания о них относят к 1951 году, когда один из охотников забрал из найденного им логова тигрицы белого тигрёнка.
+                            </span>
+                        </div>
+                        <div class="image-wrapper">
+                            <img data-original="images/r9-300x300.jpg" width="300" height="300" class="lazy" alt="">
+                            <noscript><img src="mages/r9-300x300.jpg" width="300" heigh="300" alt=""></noscript>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section id="likes">
+            <h1>Мы вам понравились?</h1>
+            <!-- Put this div tag to the place, where the Like block will be -->
+            <div id="vk_like"></div>
+            <script type="text/javascript">
+            $(function(){
+                VK.Widgets.Like("vk_like", {type: "vertical", height: 24});
+            });
+            </script>
+        </section>
+    </div>
+    <div class="hidden-box"></div>
 </body>
 </html>
