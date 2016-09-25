@@ -1,1 +1,3 @@
-Standart html templates.
+Милые тигры или как я провалился на собеседование :3 
+
+https://tehzi.github.io/job3/
